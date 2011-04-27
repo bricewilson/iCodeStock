@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/24/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "Location.h"
@@ -50,7 +50,6 @@
     [title release];
     [subtitle release];
     [category release];
-	
 	[super dealloc];
 }
 

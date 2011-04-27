@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/14/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "CategoriesViewController.h"
@@ -22,8 +22,6 @@
 
 - (void) sessionsUpdated
 {
-	//self.groupedSessions = [self groupSessionsByCategory];
-	
 	CodeStockAppDelegate *app = (CodeStockAppDelegate *)[[UIApplication sharedApplication] delegate];
 	self.groupedSessions = app.groupedSessions;
 	self.allCategories = app.allCategories;
@@ -49,11 +47,6 @@
         self.groupedSessions = [[NSDictionary alloc] init];
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -122,8 +115,6 @@
 {
     [super viewDidLoad];
 	
-//	self.title = CategoriesTitle;
-	
 	[self.waitView setHidden: NO];
     [self.waitView startAnimating];
 
@@ -134,7 +125,6 @@
 
 	// if the sessions have been downloaded and processed, then group them now
 	CodeStockAppDelegate *app = (CodeStockAppDelegate *)[[UIApplication sharedApplication] delegate];
-	//if (app.allSessions)
 	if ([app.allCategories count] > 0)
 	{
 		self.groupedSessions = app.groupedSessions;
@@ -157,6 +147,15 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)dealloc
+{
+	[categoriesTableView release];
+	[groupedSessions release];
+	[allCategories release];
+	[waitView release];
+    [super dealloc];
 }
 
 @end

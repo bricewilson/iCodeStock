@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/13/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "SessionViewController.h"
@@ -25,6 +25,7 @@
 @synthesize abstractWebView;
 
 
+// this method opens URLs in Safari instead of the UIWebView
 -(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
     if ( inType == UIWebViewNavigationTypeLinkClicked ) {
         [[UIApplication sharedApplication] openURL:[inRequest URL]];
@@ -49,11 +50,6 @@
         // Custom initialization
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -124,6 +120,19 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)dealloc
+{
+	[currentSession release];
+	[titleLabel release];
+	[sessionDate release];
+	[sessionTime release];
+	[roomLabel release];
+	[speakerLabel release];
+	[speaker release];
+	[abstractWebView release];
+    [super dealloc];
 }
 
 @end

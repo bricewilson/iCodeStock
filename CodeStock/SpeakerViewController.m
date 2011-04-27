@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/13/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "SpeakerViewController.h"
@@ -22,6 +22,7 @@
 @synthesize waitIndicator;
 
 
+// this methods loads URLs in Safari instead of the UIWebView
 -(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
     if ( inType == UIWebViewNavigationTypeLinkClicked ) {
         [[UIApplication sharedApplication] openURL:[inRequest URL]];
@@ -38,18 +39,6 @@
         // Custom initialization
     }
     return self;
-}
-
-- (void)dealloc
-{
-	[speaker release];
-	[nameLabel release];
-	[companyLabel release];
-	[twitterIDLabel release];
-	[websiteLabel release];
-	[speakerImage release];
-	[queue release];
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -113,7 +102,6 @@
 	}
 	self.websiteLabel.text = self.speaker.website;
 	self.websiteTextView.text = self.speaker.website;
-	//self.speakerImage.image = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:self.speaker.photoURL]]];
 	[self.speakerBioWebView loadHTMLString:self.speaker.bio baseURL:nil];
 	[self.speakerBioWebView setBackgroundColor:[UIColor clearColor]];
 	[self.speakerBioWebView setOpaque:NO];
@@ -135,6 +123,20 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)dealloc
+{
+	[speaker release];
+	[nameLabel release];
+	[companyLabel release];
+	[twitterIDLabel release];
+	[websiteLabel release];
+	[speakerImage release];
+	[speakerBioWebView release];
+	[websiteTextView release];
+	[queue release];
+    [super dealloc];
 }
 
 @end

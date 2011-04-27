@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/13/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "CodeStockAppDelegate.h"
@@ -83,9 +83,6 @@
 
 - (NSDictionary *) groupSessionsByCategory
 {
-	NSLog(@"Beginning to group sessions in app delegate...");
-	NSLog(@"app.allSessions count:  %d", [self.allSessions count]);
-	
 	NSMutableArray *categories = [NSMutableArray arrayWithCapacity:0];
 	for (Session *s in self.allSessions)
 	{
@@ -111,19 +108,22 @@
 		NSMutableArray *categorySessions = [sessionDict objectForKey:s.area];
 		[categorySessions addObject:s];
 	}
-	
-	// print categories and sessions
-	//	for (NSString *s in self.allCategories)
-	//	{
-	//		NSLog(@"Category Name: %@", s);
-	//		NSMutableArray *categorySessions = [sessionDict objectForKey:s];
-	//		for (Session *session in categorySessions)
-	//		{
-	//			NSLog(@"Session Title: %@", session.title);
-	//		}
-	//	}
-	
+		
 	return sessionDict;
+}
+
+- (void) printCategoriesAndSessions
+{
+	// print categories and sessions
+	for (NSString *s in self.allCategories)
+	{
+		NSLog(@"Category Name: %@", s);
+		NSMutableArray *categorySessions = [self.groupedSessions objectForKey:s];
+		for (Session *session in categorySessions)
+		{
+			NSLog(@"Session Title: %@", session.title);
+		}
+	}
 }
 
 #pragma mark - Speaker methods
@@ -142,7 +142,11 @@
 	
     // Kick off file parsing
     [parser parse];
-    
+	
+	[url release];
+	[data release];
+	[parser release];
+	[speakersParser release];
 }
 
 - (void) printSpeakers
@@ -189,7 +193,12 @@
     // Kick off file parsing
     [parser parse];
 	
-//	[self printSessions];
+	// [self printSessions];
+	
+	[url release];
+	[data release];
+	[parser release];
+	[sessionsParser release];
 }
 
 - (void) sendNewSessionsNotification
@@ -205,21 +214,21 @@
 		NSLog(@"Date: %@", s.startDateFormatted);
 		NSLog(@"Time: %@", s.startTimeFormatted);
 		
-//		// print the start date
-//		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-//		[dateFormatter setDateFormat:@"MM/dd/yyyy"];
-//		[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-//		NSString *outputDate = [dateFormatter stringFromDate:s.startDateTime];
-//		NSLog(@"Start Date: %@", outputDate);
-//		[dateFormatter release];
-//
-//		// print the start time
-//		NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
-//		[timeFormatter setDateFormat:@"h:mm a"];
-//		[timeFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-//		NSString *outputTime = [timeFormatter stringFromDate:s.startDateTime];
-//		NSLog(@"Start Time: %@", outputTime);
-//		[timeFormatter release];
+		// print the start date
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+		[dateFormatter setDateFormat:@"MM/dd/yyyy"];
+		[dateFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+		NSString *outputDate = [dateFormatter stringFromDate:s.startDateTime];
+		NSLog(@"Start Date: %@", outputDate);
+		[dateFormatter release];
+
+		// print the start time
+		NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
+		[timeFormatter setDateFormat:@"h:mm a"];
+		[timeFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
+		NSString *outputTime = [timeFormatter stringFromDate:s.startDateTime];
+		NSLog(@"Start Time: %@", outputTime);
+		[timeFormatter release];
     }
 }
 
@@ -230,6 +239,8 @@
 	[oldSessions release];
 	
 	self.groupedSessions = [self groupSessionsByCategory];
+	
+	// [self printCategoriesAndSessions];
 	
 	[self performSelectorOnMainThread:@selector(sendNewSessionsNotification) withObject:nil waitUntilDone:NO];
 }
@@ -257,7 +268,11 @@
     [parser parse];
 	
 //	[self printLocations];
-
+	
+	[url release];
+	[data release];
+	[parser release];
+	[locationsParser release];
 }
 
 - (void) printLocations
@@ -368,6 +383,9 @@
     [_tabBarController release];
 	[allSessions release];
 	[allSpeakers release];
+	[allLocations release];
+	[groupedSessions release];
+	[allCategories release];
     [super dealloc];
 }
 

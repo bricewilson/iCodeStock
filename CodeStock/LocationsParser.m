@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/24/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "LocationsParser.h"
@@ -92,6 +92,14 @@ qualifiedName:(NSString *)qName
 {
     CodeStockAppDelegate *app = (CodeStockAppDelegate *)[[UIApplication sharedApplication] delegate];
     app.allLocations = self.allLocations;
+}
+
+- (void)dealloc
+{
+	[currentXMLValue release];
+	[currentLocation release];
+	[allLocations release];
+	[super dealloc];
 }
 
 @end

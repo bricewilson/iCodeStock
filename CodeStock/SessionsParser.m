@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/14/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "SessionsParser.h"
@@ -172,7 +172,7 @@ qualifiedName:(NSString *)qName
 	NSSortDescriptor *sortDescriptor;
 	sortDescriptor = [[[NSSortDescriptor alloc] initWithKey:@"title"
 												  ascending:YES
-					   selector:@selector(caseInsensitiveCompare:)] autorelease];
+												   selector:@selector(caseInsensitiveCompare:)] autorelease];
 	NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
 	NSArray *sortedArray;
 	sortedArray = [self.allSessions sortedArrayUsingDescriptors:sortDescriptors];
@@ -180,4 +180,11 @@ qualifiedName:(NSString *)qName
     app.allSessions = sortedArray;
 }
 
+- (void)dealloc
+{
+	[currentXMLValue release];
+	[currentSession release];
+	[allSessions release];
+	[super dealloc];
+}
 @end

@@ -8,10 +8,6 @@ extern NSString * const SpeakersURL;
 extern NSString * const LocationsUpdatedMessage;
 extern NSString * const LocationsURL;
 
-// Controller Titles
-extern NSString * const CategoriesTitle;
-extern NSString * const StartTimesTitle;
-
 // Location constants
 extern NSString * const ConferenceSiteCategory;
 extern NSString * const HotelCategory;

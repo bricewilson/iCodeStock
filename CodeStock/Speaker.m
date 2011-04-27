@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/13/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "Speaker.h"
@@ -28,7 +28,6 @@
     [speakerID release];
     [twitterID release];
     [website release];
-    
     [super dealloc];
 }
 

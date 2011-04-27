@@ -10,10 +10,6 @@ NSString * const SpeakersURL = @"http://codestock.org/api/v2.0.svc/AllSpeakersXm
 NSString * const LocationsUpdatedMessage = @"LocationsUpdated";
 NSString * const LocationsURL = @"http://www.bricewilson.net/CodeStock/v1.0/CodeStockMap.xml";
 
-// Controller Titles
-NSString * const CategoriesTitle = @"Categories";
-NSString * const StartTimesTitle = @"Start Times";
-
 // Location constants
 NSString * const ConferenceSiteCategory = @"Conference Site";
 NSString * const HotelCategory = @"Hotel";

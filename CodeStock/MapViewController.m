@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/24/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "MapViewController.h"
@@ -27,11 +27,6 @@
         // Custom initialization
     }
     return self;
-}
-
-- (void)dealloc
-{
-    [super dealloc];
 }
 
 - (void)didReceiveMemoryWarning
@@ -145,6 +140,14 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)dealloc
+{
+	[mapView release];
+	[allLocations release];
+	[centerLocation release];
+    [super dealloc];
 }
 
 @end

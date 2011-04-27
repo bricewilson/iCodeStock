@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/13/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "StartTimesViewController.h"
@@ -38,14 +38,6 @@
 	NSArray *sortDescriptors = [NSArray arrayWithObject:sortDescriptor];
 	NSArray *sortedArray = [app.allSessions sortedArrayUsingDescriptors:sortDescriptors];
 
-	for (Session *s in sortedArray)
-    {
-		NSLog(@"DateTime: %@", s.startDateTime);
-	}
-	
-	NSLog(@"Beginning to group sessions by date/time...");
-	NSLog(@"app.allSessions count:  %d", [sortedArray count]);
-	
 	NSMutableArray *dates = [NSMutableArray arrayWithCapacity:0];
 	for (Session *s in sortedArray)
 	{
@@ -82,11 +74,16 @@
 		[sessions addObject:s];
 	}
 
+	return dateDict;
+}
+
+- (void) printDateTimeAndSessions
+{
 	// print dates, times, and sessions
-	for (NSString *d in dateDict)
+	for (NSString *d in self.groupedSessions)
 	{
 		NSLog(@"Date: %@", d);
-		OrderedDictionary *timeDictionary = [dateDict objectForKey:d];
+		OrderedDictionary *timeDictionary = [self.groupedSessions objectForKey:d];
 		for (NSString *t in timeDictionary)
 		{
 			NSLog(@"Time: %@", t);
@@ -96,9 +93,7 @@
 				NSLog(@"Title: %@", s.title);
 			}
 		}
-	}
-
-	return dateDict;
+	}	
 }
 
 #pragma mark - TableView delegate methods
@@ -174,8 +169,6 @@
 {
     [super viewDidLoad];
 	
-//	self.title = StartTimesTitle;
-	
 	self.tableSections = [self.groupedSessions allKeys];
 	
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -189,6 +182,7 @@
 	{
 		self.groupedSessions = [self groupSessionsByDateTime];
 		[self.dateTimeTableView reloadData];
+		//[self printDateTimeAndSessions];
 	}
 
 }
@@ -220,6 +214,10 @@
 
 - (void)dealloc
 {
+	[dateTimeTableView release];
+	[groupedSessions release];
+	[allDates release];
+	[tableSections release];
     [super dealloc];
 }
 

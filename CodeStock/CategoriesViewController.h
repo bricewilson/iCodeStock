@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/14/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
@@ -18,8 +18,6 @@
 @property (nonatomic, retain) NSArray *allCategories;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *waitView;
 
-
-//- (NSDictionary *) groupSessionsByCategory;
 - (void) sessionsUpdated;
 - (void) printCategories;
 

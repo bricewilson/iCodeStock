@@ -3,7 +3,7 @@
 //  CodeStock
 //
 //  Created by Brice Wilson on 4/13/11.
-//  Copyright 2011 TeamHealth. All rights reserved.
+//  Copyright 2011 Brice Wilson. All rights reserved.
 //
 
 #import "SessionListViewController.h"
@@ -135,6 +135,9 @@
 {
     [allSessions release];
     [currentSession release];
+	[currentXMLValue release];
+	[sessionsTableView release];
+	[groupTitle release];
     [super dealloc];
 }
 
