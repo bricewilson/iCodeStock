@@ -12,9 +12,9 @@
 
 @interface SessionsParser : NSObject  <NSXMLParserDelegate>
 {
+	NSMutableString *currentXMLValue;
 }
 
-@property (nonatomic, retain) NSMutableString *currentXMLValue;
 @property (nonatomic, retain) Session *currentSession;
 @property (nonatomic, retain) NSMutableArray *allSessions;
 

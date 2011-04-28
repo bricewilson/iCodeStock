@@ -11,6 +11,7 @@
 #import "SpeakerViewController.h"
 #import "Speaker.h"
 #import "CodeStockAppDelegate.h"
+#import "Constants.h"
 
 
 @implementation SessionViewController
@@ -24,6 +25,10 @@
 @synthesize speaker;
 @synthesize abstractWebView;
 
+- (void) sessionsUpdated
+{
+	[self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 // this method opens URLs in Safari instead of the UIWebView
 -(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
@@ -74,6 +79,11 @@
 {
     [super viewDidLoad];
     
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sessionsUpdated)
+                                                 name:SessionsUpdatedMessage 
+                                               object:nil];
+
 	speakerButton = [[[UIBarButtonItem alloc]           
 							  initWithTitle:@"Speaker"
 							  style:UIBarButtonItemStylePlain
@@ -105,6 +115,7 @@
 	self.titleLabel.numberOfLines = 0;
 	
 	UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"iCodeStockBackground.png"]];
+	//UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"test.png"]];
 	self.view.backgroundColor = background;
 	[background release];
 }

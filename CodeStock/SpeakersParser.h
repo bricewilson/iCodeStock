@@ -11,9 +11,9 @@
 
 @interface SpeakersParser : NSObject <NSXMLParserDelegate>
 {
+	NSMutableString *currentXMLValue;
 }
 
-@property (nonatomic, retain) NSMutableString *currentXMLValue;
 @property (nonatomic, retain) Speaker *currentSpeaker;
 @property (nonatomic, retain) NSMutableArray *allSpeakers;
 

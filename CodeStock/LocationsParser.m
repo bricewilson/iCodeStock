@@ -13,7 +13,6 @@
 
 @implementation LocationsParser
 
-@synthesize currentXMLValue;
 @synthesize currentLocation;
 @synthesize allLocations;
 
@@ -25,12 +24,19 @@
 
 #pragma mark - XML Parser
 
+-(void)parserDidStartDocument:(NSXMLParser *)parser
+{
+	currentXMLValue = [[NSMutableString alloc] init];
+}
+
 // This method gets called every time NSXMLParser encounters a new element
 -(void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
  namespaceURI:(NSString *)namespaceURI
 qualifiedName:(NSString *)qualifiedName
    attributes:(NSDictionary *)attributeDict{
     
+	[currentXMLValue setString:@""];
+
     if ([elementName isEqualToString:@"CodeStockLocation"])
     {
 		self.currentLocation = [[Location alloc] init];
@@ -39,16 +45,7 @@ qualifiedName:(NSString *)qualifiedName
 
 // This method gets called for every character NSXMLParser finds.
 -(void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string{
-    
-    // If currentXMLValue doesn't exist, initialize and allocate
-    if (!self.currentXMLValue)
-    {
-		self.currentXMLValue = [[NSMutableString alloc] init];
-    }
-    
-    // Append the current character value to the running string
-    // that is being parsed
-    [self.currentXMLValue appendString:string];
+    [currentXMLValue appendString:string];
 }
 
 // This method is called whenever NSXMLParser reaches the end of an element
@@ -58,23 +55,23 @@ qualifiedName:(NSString *)qName
 {
     if ([elementName isEqualToString:@"Title"])
     {
-        self.currentLocation.title = [self.currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        self.currentLocation.title = [currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     }
     if ([elementName isEqualToString:@"Subtitle"])
     {
-        self.currentLocation.subtitle = [self.currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        self.currentLocation.subtitle = [currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     }
     if ([elementName isEqualToString:@"Category"])
     {
-        self.currentLocation.category = [self.currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        self.currentLocation.category = [currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     }
     if ([elementName isEqualToString:@"Latitude"])
     {
-        self.currentLocation.latitude = [[self.currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] doubleValue];
+        self.currentLocation.latitude = [[currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] doubleValue];
     }
     if ([elementName isEqualToString:@"Longitude"])
     {
-        self.currentLocation.longitude = [[self.currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] doubleValue];
+        self.currentLocation.longitude = [[currentXMLValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] doubleValue];
     }
     if ([elementName isEqualToString:@"CodeStockLocation"])
     {
@@ -83,15 +80,15 @@ qualifiedName:(NSString *)qName
         [currentLocation release];
         currentLocation = nil;
     }
-	
-	[currentXMLValue release];
-	currentXMLValue = nil;
 }
 
 - (void)parserDidEndDocument:(NSXMLParser *)parser
 {
     CodeStockAppDelegate *app = (CodeStockAppDelegate *)[[UIApplication sharedApplication] delegate];
     app.allLocations = self.allLocations;
+	
+	[currentXMLValue release];
+	currentXMLValue = nil;
 }
 
 - (void)dealloc

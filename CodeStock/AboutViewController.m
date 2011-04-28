@@ -58,7 +58,7 @@
 	[self.codeStockDescWebView setBackgroundColor:[UIColor clearColor]];
 	[self.codeStockDescWebView setOpaque:NO];
 
-	UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"iCodeStockBackground.png"]];
+	UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"iCodeStockBackgroundAbout.png"]];
 	self.view.backgroundColor = background;
 	[background release];
 }

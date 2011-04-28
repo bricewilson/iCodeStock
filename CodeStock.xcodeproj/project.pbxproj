@@ -34,6 +34,8 @@
 		BA856F59135608D3009A9C93 /* SessionView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BA856F58135608D3009A9C93 /* SessionView.xib */; };
 		BA856F5C135615A5009A9C93 /* Speaker.m in Sources */ = {isa = PBXBuildFile; fileRef = BA856F5B135615A5009A9C93 /* Speaker.m */; };
 		BA856F5F13561724009A9C93 /* SpeakersParser.m in Sources */ = {isa = PBXBuildFile; fileRef = BA856F5E13561724009A9C93 /* SpeakersParser.m */; };
+		BA8BCFBB1369275A00136F7F /* iCodeStockBackgroundAbout.png in Resources */ = {isa = PBXBuildFile; fileRef = BA8BCFB91369275A00136F7F /* iCodeStockBackgroundAbout.png */; };
+		BA8BCFBC1369275A00136F7F /* iCodeStockBackgroundAbout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA8BCFBA1369275A00136F7F /* iCodeStockBackgroundAbout@2x.png */; };
 		BA93A2BF135FB8AC003EEDB1 /* OrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = BA93A2BE135FB8AC003EEDB1 /* OrderedDictionary.m */; };
 		BA94799E1367C024008FB114 /* iCodeStockBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = BA94799D1367C024008FB114 /* iCodeStockBackground@2x.png */; };
 		BAA5E9C4135D11B5005BC612 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = BAA5E9C3135D11B5005BC612 /* Constants.m */; };
@@ -94,6 +96,8 @@
 		BA856F5B135615A5009A9C93 /* Speaker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Speaker.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BA856F5D13561724009A9C93 /* SpeakersParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SpeakersParser.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		BA856F5E13561724009A9C93 /* SpeakersParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SpeakersParser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		BA8BCFB91369275A00136F7F /* iCodeStockBackgroundAbout.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iCodeStockBackgroundAbout.png; sourceTree = "<group>"; };
+		BA8BCFBA1369275A00136F7F /* iCodeStockBackgroundAbout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iCodeStockBackgroundAbout@2x.png"; sourceTree = "<group>"; };
 		BA93A2BD135FB8AC003EEDB1 /* OrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderedDictionary.h; sourceTree = "<group>"; };
 		BA93A2BE135FB8AC003EEDB1 /* OrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderedDictionary.m; sourceTree = "<group>"; };
 		BA94799D1367C024008FB114 /* iCodeStockBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iCodeStockBackground@2x.png"; sourceTree = "<group>"; };
@@ -147,6 +151,8 @@
 		BA7D50B1136506FD007074D9 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				BA8BCFB91369275A00136F7F /* iCodeStockBackgroundAbout.png */,
+				BA8BCFBA1369275A00136F7F /* iCodeStockBackgroundAbout@2x.png */,
 				BAAAAA2013668296007BB5A4 /* iCodeStockAbout.png */,
 				BAAAAA23136684C4007BB5A4 /* iCodeStockAbout@2x.png */,
 				BA61DDE41365F1BC0092CBE9 /* iCodeStockBackground.png */,
@@ -357,6 +363,8 @@
 				BAAAAA2113668296007BB5A4 /* iCodeStockAbout.png in Resources */,
 				BAAAAA24136684C4007BB5A4 /* iCodeStockAbout@2x.png in Resources */,
 				BA94799E1367C024008FB114 /* iCodeStockBackground@2x.png in Resources */,
+				BA8BCFBB1369275A00136F7F /* iCodeStockBackgroundAbout.png in Resources */,
+				BA8BCFBC1369275A00136F7F /* iCodeStockBackgroundAbout@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

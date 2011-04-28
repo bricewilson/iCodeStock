@@ -8,6 +8,7 @@
 
 #import "SpeakerViewController.h"
 #import "Speaker.h"
+#import "Constants.h"
 
 @implementation SpeakerViewController
 
@@ -21,6 +22,10 @@
 @synthesize websiteTextView;
 @synthesize waitIndicator;
 
+- (void) sessionsUpdated
+{
+	[self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 // this methods loads URLs in Safari instead of the UIWebView
 -(BOOL) webView:(UIWebView *)inWeb shouldStartLoadWithRequest:(NSURLRequest *)inRequest navigationType:(UIWebViewNavigationType)inType {
@@ -76,6 +81,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(sessionsUpdated)
+                                                 name:SessionsUpdatedMessage 
+                                               object:nil];
 	
 	self.title = @"Speaker";
 	

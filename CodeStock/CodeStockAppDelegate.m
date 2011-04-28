@@ -79,6 +79,9 @@
 																					  object:nil];
     [queue addOperation:locationsOperation];
     [locationsOperation release];
+	
+	[queue release];
+	
 }
 
 - (NSDictionary *) groupSessionsByCategory
@@ -330,7 +333,6 @@
     }
 	else if (self.appLoading == NO)
 	{
-		NSLog(@"Loading data in reachability");
 		[self loadData];
 	}
 }
@@ -359,6 +361,7 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+	[self loadData];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

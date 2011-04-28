@@ -11,9 +11,9 @@
 
 @interface LocationsParser : NSObject <NSXMLParserDelegate>
 {
+	NSMutableString *currentXMLValue;
 }
 
-@property (nonatomic, retain) NSMutableString *currentXMLValue;
 @property (nonatomic, retain) Location *currentLocation;
 @property (nonatomic, retain) NSMutableArray *allLocations;
 
