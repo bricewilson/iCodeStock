@@ -15,3 +15,4 @@ extern NSString * const DiningCategory;
 extern NSString * const ParkingCategory;
 
 extern NSString * const CodeStockDescHtml;
+extern NSString * const DataRefreshMessage;

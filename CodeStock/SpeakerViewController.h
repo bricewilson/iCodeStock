@@ -23,6 +23,7 @@
 @property (nonatomic, retain) IBOutlet UIWebView *speakerBioWebView;
 @property (nonatomic, retain) IBOutlet UITextView *websiteTextView;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *waitIndicator;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *dataWaitIndicator;
 
 - (void)loadImage;
 

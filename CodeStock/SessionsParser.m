@@ -40,7 +40,9 @@ qualifiedName:(NSString *)qualifiedName
 
     if ([elementName isEqualToString:@"CodeStockSession"])
     {
-		self.currentSession = [[Session alloc] init];
+		Session *newSession = [[Session alloc] init];
+		self.currentSession = newSession;
+		[newSession release];
     }
 }
 

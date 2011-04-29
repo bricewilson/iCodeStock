@@ -22,6 +22,8 @@
 @property (nonatomic, retain) NSDictionary *groupedSessions;
 @property (nonatomic, retain) NSArray *allCategories;
 @property (nonatomic, assign) BOOL appLoading;
+@property (nonatomic, retain) NSArray *allSpeakers;
+@property (nonatomic, retain) NSArray *allLocations;
 
 - (void) parseSpeakers;
 - (void) printSpeakers;
@@ -39,14 +41,6 @@
 - (void) setAllSessions:(NSArray *)sessions;
 - (NSArray *) allSessions;
 - (void) sendNewSessionsNotification;
-
-- (void) setAllSpeakers:(NSArray *)speakers;
-- (NSArray *) allSpeakers;
-- (void) sendNewSpeakersNotification;
-
-- (void) setAllLocations:(NSArray *)locations;
-- (NSArray *) allLocations;
-- (void) sendNewLocationsNotification;
 
 - (void) updateInterfaceWithReachability: (Reachability *)curReach;
 - (void) reachabilityChanged: (NSNotification* )note;

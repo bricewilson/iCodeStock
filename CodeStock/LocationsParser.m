@@ -39,7 +39,9 @@ qualifiedName:(NSString *)qualifiedName
 
     if ([elementName isEqualToString:@"CodeStockLocation"])
     {
-		self.currentLocation = [[Location alloc] init];
+		Location *newLocation = [[Location alloc] init];
+		self.currentLocation = newLocation;
+		[newLocation release];
     }
 }
 

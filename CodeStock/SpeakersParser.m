@@ -39,7 +39,9 @@ qualifiedName:(NSString *)qualifiedName
 
     if ([elementName isEqualToString:@"CodeStockSpeaker"])
     {
-		self.currentSpeaker = [[Speaker alloc] init];
+		Speaker *newSpeaker = [[Speaker alloc] init];
+		self.currentSpeaker = newSpeaker;
+		[newSpeaker release];
     }
 }
 

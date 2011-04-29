@@ -20,9 +20,19 @@
 @synthesize currentXMLValue;
 @synthesize sessionsTableView;
 @synthesize groupTitle;
+@synthesize dataWaitIndicator;
+
+
+- (void) dataRefreshStarted
+{
+	[self.dataWaitIndicator startAnimating];
+	[self.dataWaitIndicator setHidden:NO];
+}
 
 - (void) sessionsUpdated
 {
+	[self.dataWaitIndicator stopAnimating];
+	[self.dataWaitIndicator setHidden:YES];
 	[self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -96,6 +106,13 @@
 {
     [super viewDidLoad];
     
+	[self.dataWaitIndicator setHidden:YES];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dataRefreshStarted)
+                                                 name:DataRefreshMessage 
+                                               object:nil];
+
     self.title = @"Sessions";
     
 	[[NSNotificationCenter defaultCenter] addObserver:self
@@ -138,6 +155,7 @@
 	[currentXMLValue release];
 	[sessionsTableView release];
 	[groupTitle release];
+	[dataWaitIndicator release];
     [super dealloc];
 }
 

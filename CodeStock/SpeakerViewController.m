@@ -21,9 +21,18 @@
 @synthesize speakerBioWebView;
 @synthesize websiteTextView;
 @synthesize waitIndicator;
+@synthesize dataWaitIndicator;
+
+- (void) dataRefreshStarted
+{
+	[self.dataWaitIndicator startAnimating];
+	[self.dataWaitIndicator setHidden:NO];
+}
 
 - (void) sessionsUpdated
 {
+	[self.dataWaitIndicator stopAnimating];
+	[self.dataWaitIndicator setHidden:YES];
 	[self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -82,6 +91,13 @@
 {
     [super viewDidLoad];
 	
+	[self.dataWaitIndicator setHidden:YES];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dataRefreshStarted)
+                                                 name:DataRefreshMessage 
+                                               object:nil];
+
 	[[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sessionsUpdated)
                                                  name:SessionsUpdatedMessage 
@@ -146,6 +162,7 @@
 	[speakerBioWebView release];
 	[websiteTextView release];
 	[queue release];
+	[dataWaitIndicator release];
     [super dealloc];
 }
 

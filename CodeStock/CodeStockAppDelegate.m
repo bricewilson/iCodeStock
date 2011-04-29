@@ -23,6 +23,8 @@
 @synthesize groupedSessions;
 @synthesize allCategories;
 @synthesize appLoading;
+@synthesize allSpeakers;
+@synthesize allLocations;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -44,7 +46,6 @@
     internetReach = [[Reachability reachabilityForInternetConnection] retain];
 	[internetReach startNotifier];
 	[self updateInterfaceWithReachability: internetReach];
-
     
 	[NSThread sleepForTimeInterval:2.0];
 
@@ -160,25 +161,6 @@
     }
 }
 
-- (void) sendNewSpeakersNotification
-{
-	[[NSNotificationCenter defaultCenter] postNotificationName:SpeakersUpdatedMessage object:self];
-}
-
-- (void) setAllSpeakers:(NSArray *)speakers
-{
-	NSArray* oldSpeakers = allSpeakers;
-	allSpeakers = [speakers retain];
-	[oldSpeakers release];
-	
-	[self performSelectorOnMainThread:@selector(sendNewSessionsNotification) withObject:nil waitUntilDone:NO];
-}
-
-- (NSArray *) allSpeakers
-{
-	return allSpeakers;
-}
-
 #pragma mark - Session methods
 
 - (void) parseSessions
@@ -290,23 +272,6 @@
 	}
 }
 
-- (void) setAllLocations:(NSArray *)locations
-{
-	NSArray* oldLocations = allLocations;
-	allLocations = [locations retain];
-	[oldLocations release];
-}
-
-- (NSArray *) allLocations
-{
-	return allLocations;
-}
-
-- (void) sendNewLocationsNotification
-{
-	
-}
-
 #pragma mark - Reachability methods
 
 //Called by Reachability whenever status changes.
@@ -333,6 +298,7 @@
     }
 	else if (self.appLoading == NO)
 	{
+		[[NSNotificationCenter defaultCenter] postNotificationName:DataRefreshMessage object:self];
 		[self loadData];
 	}
 }
@@ -361,6 +327,7 @@
     /*
      Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
      */
+	[[NSNotificationCenter defaultCenter] postNotificationName:DataRefreshMessage object:self];
 	[self loadData];
 }
 

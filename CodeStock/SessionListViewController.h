@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSMutableString *currentXMLValue;
 @property (nonatomic, retain) IBOutlet UITableView *sessionsTableView;
 @property (nonatomic, retain) NSString *groupTitle;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *dataWaitIndicator;
 
 - (void) sessionsUpdated;
 

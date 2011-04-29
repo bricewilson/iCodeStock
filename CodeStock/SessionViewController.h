@@ -23,6 +23,7 @@
 @property (nonatomic, retain) IBOutlet UILabel *speakerLabel;
 @property (nonatomic, retain) Speaker *speaker;
 @property (nonatomic, retain) IBOutlet UIWebView *abstractWebView;
+@property (nonatomic, retain) IBOutlet UIActivityIndicatorView *dataWaitIndicator;
 
 - (void) showSpeaker;
 

@@ -24,9 +24,19 @@
 @synthesize speakerLabel;
 @synthesize speaker;
 @synthesize abstractWebView;
+@synthesize dataWaitIndicator;
+
+
+- (void) dataRefreshStarted
+{
+	[self.dataWaitIndicator startAnimating];
+	[self.dataWaitIndicator setHidden:NO];
+}
 
 - (void) sessionsUpdated
 {
+	[self.dataWaitIndicator stopAnimating];
+	[self.dataWaitIndicator setHidden:YES];
 	[self.navigationController popToRootViewControllerAnimated:YES];
 }
 
@@ -79,6 +89,13 @@
 {
     [super viewDidLoad];
     
+	[self.dataWaitIndicator setHidden:YES];
+	
+	[[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(dataRefreshStarted)
+                                                 name:DataRefreshMessage 
+                                               object:nil];
+
 	[[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(sessionsUpdated)
                                                  name:SessionsUpdatedMessage 
@@ -143,6 +160,7 @@
 	[speakerLabel release];
 	[speaker release];
 	[abstractWebView release];
+	[dataWaitIndicator release];
     [super dealloc];
 }
 
