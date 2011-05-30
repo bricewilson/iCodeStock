@@ -63,19 +63,19 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-- (void)loadImage
-{
-	NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.speaker.photoURL]];
-	UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
-	[imageData release];
-	[self performSelectorOnMainThread:@selector(displayImage:) withObject:image waitUntilDone:NO];
-}
-
-- (void)displayImage:(UIImage *)image
-{
-	[waitIndicator stopAnimating];
-	self.speakerImage.image = image; //UIImageView
-}
+//- (void)loadImage
+//{
+//	NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.speaker.photoURL]];
+//	UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
+//	[imageData release];
+//	[self performSelectorOnMainThread:@selector(displayImage:) withObject:image waitUntilDone:NO];
+//}
+//
+//- (void)displayImage:(UIImage *)image
+//{
+//	[waitIndicator stopAnimating];
+//	self.speakerImage.image = image; //UIImageView
+//}
 
 #pragma mark - View lifecycle
 
@@ -106,13 +106,26 @@
 	self.title = @"Speaker";
 	
 	// begin downloading speaker image asynchronously
-	queue = [NSOperationQueue new];
-	NSInvocationOperation *operation = [[NSInvocationOperation alloc] 
-										initWithTarget:self
-										selector:@selector(loadImage) 
-										object:nil];
-	[queue addOperation:operation]; 
-	[operation release];
+	NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+	[queue addOperationWithBlock:^{
+		NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.speaker.photoURL]];
+		UIImage* image = [[UIImage alloc] initWithData:imageData];
+		[imageData release];
+		
+		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
+			[waitIndicator stopAnimating];
+			self.speakerImage.image = image; //UIImageView
+		}];
+		[image release];
+	}];
+	[queue release];
+	
+//	NSInvocationOperation *operation = [[NSInvocationOperation alloc] 
+//										initWithTarget:self
+//										selector:@selector(loadImage) 
+//										object:nil];
+//	[queue addOperation:operation]; 
+//	[operation release];
 	
 	
 	
@@ -161,7 +174,7 @@
 	[speakerImage release];
 	[speakerBioWebView release];
 	[websiteTextView release];
-	[queue release];
+	//[queue release];
 	[dataWaitIndicator release];
     [super dealloc];
 }

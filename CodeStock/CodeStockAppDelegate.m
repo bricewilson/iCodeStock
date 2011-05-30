@@ -50,39 +50,79 @@
 	[NSThread sleepForTimeInterval:2.0];
 
 	self.appLoading = NO;
-	
+		
     return YES;
 }
+
+#pragma mark - Load data methods
 
 - (void) loadData
 {
 	// load the data asychronously
-	
     NSOperationQueue *queue = [NSOperationQueue new];
 	
 	// load sessions
-    NSInvocationOperation *sessionsOperation = [[NSInvocationOperation alloc] initWithTarget:self
-																			selector:@selector(parseSessions)
-																			  object:nil];
+	NSString *sessionsURL = [NSString stringWithString:SessionsURL];
+	SessionsParser *sessionsParser = [[SessionsParser alloc] init];
+	NSInvocation *sessionsInvocation = [self invocationParserForURL:sessionsURL parser:sessionsParser];
+	NSInvocationOperation *sessionsOperation = [[NSInvocationOperation alloc] initWithInvocation:sessionsInvocation];
     [queue addOperation:sessionsOperation];
+	[sessionsParser release];
     [sessionsOperation release];
-
+	
 	// load speakers
-	NSInvocationOperation *speakersOperation = [[NSInvocationOperation alloc] initWithTarget:self
-																					selector:@selector(parseSpeakers)
-																					  object:nil];
+	NSString *speakersURL = [NSString stringWithString:SpeakersURL];
+	SpeakersParser *speakersParser = [[SpeakersParser alloc] init];
+	NSInvocation *speakerInvocation = [self invocationParserForURL:speakersURL parser:speakersParser];
+	NSInvocationOperation *speakersOperation = [[NSInvocationOperation alloc] initWithInvocation:speakerInvocation];
     [queue addOperation:speakersOperation];
+	[speakersParser release];
     [speakersOperation release];
 	
 	// load locations
-	NSInvocationOperation *locationsOperation = [[NSInvocationOperation alloc] initWithTarget:self
-																					selector:@selector(parseLocations)
-																					  object:nil];
-    [queue addOperation:locationsOperation];
-    [locationsOperation release];
+	NSString *locationsURL = [NSString stringWithString:LocationsURL];
+	LocationsParser *locationsParser = [[LocationsParser alloc] init];
+	NSInvocation *locationInvocation = [self invocationParserForURL:locationsURL parser:locationsParser];
+	NSInvocationOperation *locationsOperation = [[NSInvocationOperation alloc] initWithInvocation:locationInvocation];
+	[queue addOperation:locationsOperation];
+	[locationsParser release];
+	[locationsOperation release];
 	
 	[queue release];
 	
+}
+
+-(NSInvocation *)invocationParserForURL:(NSString *)urlString parser:(id<NSXMLParserDelegate>)xmlParser {
+
+	// configure selector and signature used for invocation objects
+	SEL parserSelector = @selector(parseXMLFromURL:parser:);
+	NSMethodSignature *signature = [[self class] instanceMethodSignatureForSelector:parserSelector];
+	
+	// create invocation object with specific parameters
+	NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+	[invocation setTarget:self];
+	[invocation setSelector:parserSelector];
+	[invocation setArgument:&urlString atIndex:2];
+	[invocation setArgument:&xmlParser atIndex:3];
+	[invocation retainArguments];
+	return invocation;
+}
+
+- (void) parseXMLFromURL:(NSString *)urlString parser:(id<NSXMLParserDelegate>)xmlParser
+{
+    NSURL *url = [[NSURL alloc] initWithString:urlString];	
+	NSData *data = [[NSData alloc] initWithContentsOfURL:url];	
+	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
+	
+    // Tell NSXMLParser who it's delegate is
+    [parser setDelegate:xmlParser];
+	
+    // Kick off file parsing
+    [parser parse];
+	
+	[url release];
+	[data release];
+	[parser release];
 }
 
 - (NSDictionary *) groupSessionsByCategory
@@ -116,42 +156,7 @@
 	return sessionDict;
 }
 
-- (void) printCategoriesAndSessions
-{
-	// print categories and sessions
-	for (NSString *s in self.allCategories)
-	{
-		NSLog(@"Category Name: %@", s);
-		NSMutableArray *categorySessions = [self.groupedSessions objectForKey:s];
-		for (Session *session in categorySessions)
-		{
-			NSLog(@"Session Title: %@", session.title);
-		}
-	}
-}
-
-#pragma mark - Speaker methods
-
-- (void) parseSpeakers
-{
-    NSMutableString *addressURL = [NSMutableString stringWithString:SpeakersURL];
-	
-    NSURL *url = [[NSURL alloc] initWithString:addressURL];	
-	NSData *data = [[NSData alloc] initWithContentsOfURL:url];	
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-	
-    // Tell NSXMLParser who it's delegate is
-    SpeakersParser *speakersParser = [[SpeakersParser alloc] init];
-    [parser setDelegate:speakersParser];
-	
-    // Kick off file parsing
-    [parser parse];
-	
-	[url release];
-	[data release];
-	[parser release];
-	[speakersParser release];
-}
+#pragma mark - Print methods
 
 - (void) printSpeakers
 {
@@ -161,34 +166,16 @@
     }
 }
 
-#pragma mark - Session methods
-
-- (void) parseSessions
+- (void) printLocations
 {
-    NSMutableString *addressURL = [NSMutableString stringWithString:SessionsURL];
-	
-    NSURL *url = [[NSURL alloc] initWithString:addressURL];	
-	NSData *data = [[NSData alloc] initWithContentsOfURL:url];	
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-	
-    // Tell NSXMLParser who it's delegate is
-	SessionsParser *sessionsParser = [[SessionsParser alloc] init];
-    [parser setDelegate:sessionsParser];
-	
-    // Kick off file parsing
-    [parser parse];
-	
-	// [self printSessions];
-	
-	[url release];
-	[data release];
-	[parser release];
-	[sessionsParser release];
-}
-
-- (void) sendNewSessionsNotification
-{
-	[[NSNotificationCenter defaultCenter] postNotificationName:SessionsUpdatedMessage object:self];
+	for (Location *loc in self.allLocations)
+    {
+        NSLog(@"Location Title: %@", loc.title);
+		NSLog(@"Location Subtitle: %@", loc.subtitle);
+		NSLog(@"Location Category: %@", loc.category);
+		NSLog(@"Location Latitude: %@", [NSString stringWithFormat:@"%f", loc.latitude]);
+		NSLog(@"Location Longitude: %@", [NSString stringWithFormat:@"%f", loc.longitude]);
+	}
 }
 
 - (void) printSessions
@@ -206,7 +193,7 @@
 		NSString *outputDate = [dateFormatter stringFromDate:s.startDateTime];
 		NSLog(@"Start Date: %@", outputDate);
 		[dateFormatter release];
-
+		
 		// print the start time
 		NSDateFormatter *timeFormatter = [[NSDateFormatter alloc] init];
 		[timeFormatter setDateFormat:@"h:mm a"];
@@ -215,6 +202,27 @@
 		NSLog(@"Start Time: %@", outputTime);
 		[timeFormatter release];
     }
+}
+
+- (void) printCategoriesAndSessions
+{
+	// print categories and sessions
+	for (NSString *s in self.allCategories)
+	{
+		NSLog(@"Category Name: %@", s);
+		NSMutableArray *categorySessions = [self.groupedSessions objectForKey:s];
+		for (Session *session in categorySessions)
+		{
+			NSLog(@"Session Title: %@", session.title);
+		}
+	}
+}
+
+#pragma mark - Session methods
+
+- (void) sendNewSessionsNotification
+{
+	[[NSNotificationCenter defaultCenter] postNotificationName:SessionsUpdatedMessage object:self];
 }
 
 - (void) setAllSessions:(NSArray *)sessions
@@ -233,43 +241,6 @@
 - (NSArray *) allSessions
 {
 	return allSessions;
-}
-
-#pragma mark - Location methods
-
-- (void) parseLocations
-{
-	NSMutableString *addressURL = [NSMutableString stringWithString:LocationsURL];
-	
-    NSURL *url = [[NSURL alloc] initWithString:addressURL];	
-	NSData *data = [[NSData alloc] initWithContentsOfURL:url];	
-	NSXMLParser *parser = [[NSXMLParser alloc] initWithData:data];
-	
-    // Tell NSXMLParser who it's delegate is
-	LocationsParser *locationsParser = [[LocationsParser alloc] init];
-    [parser setDelegate:locationsParser];
-	
-    // Kick off file parsing
-    [parser parse];
-	
-//	[self printLocations];
-	
-	[url release];
-	[data release];
-	[parser release];
-	[locationsParser release];
-}
-
-- (void) printLocations
-{
-	for (Location *loc in self.allLocations)
-    {
-        NSLog(@"Location Title: %@", loc.title);
-		NSLog(@"Location Subtitle: %@", loc.subtitle);
-		NSLog(@"Location Category: %@", loc.category);
-		NSLog(@"Location Latitude: %@", [NSString stringWithFormat:@"%f", loc.latitude]);
-		NSLog(@"Location Longitude: %@", [NSString stringWithFormat:@"%f", loc.longitude]);
-	}
 }
 
 #pragma mark - Reachability methods

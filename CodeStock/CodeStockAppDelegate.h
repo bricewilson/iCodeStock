@@ -25,27 +25,19 @@
 @property (nonatomic, retain) NSArray *allSpeakers;
 @property (nonatomic, retain) NSArray *allLocations;
 
-- (void) parseSpeakers;
-- (void) printSpeakers;
-
-- (void) parseSessions;
-- (void) printSessions;
-
-- (void) parseLocations;
-- (void) printLocations;
-
-- (void) printCategoriesAndSessions;
-
+- (void) parseXMLFromURL:(NSString *)urlString parser:(id<NSXMLParserDelegate>)xmlParser;
 - (void) loadData;
-
 - (void) setAllSessions:(NSArray *)sessions;
 - (NSArray *) allSessions;
 - (void) sendNewSessionsNotification;
-
 - (void) updateInterfaceWithReachability: (Reachability *)curReach;
 - (void) reachabilityChanged: (NSNotification* )note;
-
 - (NSDictionary *) groupSessionsByCategory;
+-(NSInvocation *)invocationParserForURL:(NSString *)urlString parser:(id<NSXMLParserDelegate>)xmlParser;
 
+- (void) printSpeakers;
+- (void) printSessions;
+- (void) printLocations;
+- (void) printCategoriesAndSessions;
 
 @end

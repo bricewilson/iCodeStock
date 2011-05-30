@@ -11,7 +11,7 @@
 
 @interface SpeakerViewController : UIViewController <UIWebViewDelegate>
 {
-	NSOperationQueue *queue;
+	//NSOperationQueue *queue;
 }
 
 @property (nonatomic, retain) Speaker *speaker;
@@ -25,6 +25,6 @@
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *waitIndicator;
 @property (nonatomic, retain) IBOutlet UIActivityIndicatorView *dataWaitIndicator;
 
-- (void)loadImage;
+//- (void)loadImage;
 
 @end
