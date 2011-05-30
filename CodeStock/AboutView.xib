@@ -90,7 +90,7 @@
 					<object class="IBUITextView" id="148934702">
 						<reference key="NSNextResponder" ref="191373211"/>
 						<int key="NSvFlags">292</int>
-						<string key="NSFrame">{{88, 88}, {145, 23}}</string>
+						<string key="NSFrame">{{20, 88}, {280, 23}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="908450224"/>
@@ -107,7 +107,7 @@
 						<bool key="IBUIShowsHorizontalScrollIndicator">NO</bool>
 						<bool key="IBUIShowsVerticalScrollIndicator">NO</bool>
 						<bool key="IBUIEditable">NO</bool>
-						<string key="IBUIText">www.BriceWilson.net</string>
+						<string key="IBUIText">www.BriceWilson.net/iCodeStock</string>
 						<object class="NSFont" key="IBUIFont" id="849577898">
 							<string key="NSName">Helvetica</string>
 							<double key="NSSize">12</double>
