@@ -132,7 +132,6 @@
 	self.titleLabel.numberOfLines = 0;
 	
 	UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"iCodeStockBackground.png"]];
-	//UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"test.png"]];
 	self.view.backgroundColor = background;
 	[background release];
 }

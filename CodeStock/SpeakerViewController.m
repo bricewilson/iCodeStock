@@ -63,20 +63,6 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
-//- (void)loadImage
-//{
-//	NSData* imageData = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:self.speaker.photoURL]];
-//	UIImage* image = [[[UIImage alloc] initWithData:imageData] autorelease];
-//	[imageData release];
-//	[self performSelectorOnMainThread:@selector(displayImage:) withObject:image waitUntilDone:NO];
-//}
-//
-//- (void)displayImage:(UIImage *)image
-//{
-//	[waitIndicator stopAnimating];
-//	self.speakerImage.image = image; //UIImageView
-//}
-
 #pragma mark - View lifecycle
 
 /*
@@ -114,20 +100,11 @@
 		
 		[[NSOperationQueue mainQueue] addOperationWithBlock:^{
 			[waitIndicator stopAnimating];
-			self.speakerImage.image = image; //UIImageView
+			self.speakerImage.image = image;
 		}];
 		[image release];
 	}];
 	[queue release];
-	
-//	NSInvocationOperation *operation = [[NSInvocationOperation alloc] 
-//										initWithTarget:self
-//										selector:@selector(loadImage) 
-//										object:nil];
-//	[queue addOperation:operation]; 
-//	[operation release];
-	
-	
 	
 	self.nameLabel.text = self.speaker.name;
 	self.companyLabel.text = self.speaker.company;
@@ -174,7 +151,6 @@
 	[speakerImage release];
 	[speakerBioWebView release];
 	[websiteTextView release];
-	//[queue release];
 	[dataWaitIndicator release];
     [super dealloc];
 }
