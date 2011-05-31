@@ -121,7 +121,7 @@
 		BAC1DD451355E4BB00705C9F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		BAC1DD491355E4BB00705C9F /* iCodeStock-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "iCodeStock-Info.plist"; sourceTree = "<group>"; };
 		BAC1DD4B1355E4BB00705C9F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		BAC1DD4D1355E4BB00705C9F /* iCodeStock-Prefix.pch */ = {isa = PBXFileReference; path = "iCodeStock-Prefix.pch"; sourceTree = "<group>"; };
+		BAC1DD4D1355E4BB00705C9F /* iCodeStock-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iCodeStock-Prefix.pch"; sourceTree = "<group>"; };
 		BAC1DD4E1355E4BB00705C9F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = main.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		BAC1DD501355E4BB00705C9F /* CodeStockAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = CodeStockAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		BAC1DD511355E4BB00705C9F /* CodeStockAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CodeStockAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -254,8 +254,7 @@
 				BAC1DD511355E4BB00705C9F /* CodeStockAppDelegate.m */,
 				BAC1DD481355E4BB00705C9F /* Supporting Files */,
 			);
-			name = iCodeStock;
-			path = CodeStock;
+			path = iCodeStock;
 			sourceTree = "<group>";
 		};
 		BAC1DD481355E4BB00705C9F /* Supporting Files */ = {
@@ -491,8 +490,9 @@
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CodeStock/iCodeStock-Prefix.pch";
-				INFOPLIST_FILE = "iCodeStock-Info.plist";
+				GCC_PREFIX_HEADER = "iCodeStock/iCodeStock-Prefix.pch";
+				INFOPLIST_FILE = "iCodeStock/iCodeStock-Info.plist";
+				"INFOPLIST_FILE[sdk=*]" = "iCodeStock/iCodeStock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = iCodeStock;
 				PROVISIONING_PROFILE = "A5F571A9-FADA-49CA-AE4A-803F60561D91";
@@ -509,8 +509,9 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brice Wilson (U8YH9JLK6V)";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CodeStock/iCodeStock-Prefix.pch";
-				INFOPLIST_FILE = "iCodeStock-Info.plist";
+				GCC_PREFIX_HEADER = "iCodeStock/iCodeStock-Prefix.pch";
+				INFOPLIST_FILE = "iCodeStock/iCodeStock-Info.plist";
+				"INFOPLIST_FILE[sdk=*]" = "iCodeStock/iCodeStock-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = iCodeStock;
 				PROVISIONING_PROFILE = "A5F571A9-FADA-49CA-AE4A-803F60561D91";
