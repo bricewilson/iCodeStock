@@ -130,9 +130,16 @@
 
 - (void)viewDidUnload
 {
+	self.nameLabel = nil;
+	self.companyLabel = nil;
+	self.twitterIDLabel = nil;
+	self.websiteLabel = nil;
+	self.speakerImage = nil;
+	self.speakerBioWebView = nil;
+	self.websiteTextView = nil;
+	self.waitIndicator = nil;
+	self.dataWaitIndicator = nil;
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

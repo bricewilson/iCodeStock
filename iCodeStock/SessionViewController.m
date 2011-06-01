@@ -138,9 +138,14 @@
 
 - (void)viewDidUnload
 {
+	self.titleLabel = nil;
+	self.sessionDate = nil;
+	self.sessionTime = nil;
+	self.roomLabel = nil;
+	self.speakerLabel = nil;
+	self.abstractWebView = nil;
+	self.dataWaitIndicator = nil;
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

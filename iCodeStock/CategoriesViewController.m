@@ -138,9 +138,9 @@
 
 - (void)viewDidUnload
 {
+	self.categoriesTableView = nil;
+	self.waitView = nil;
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
